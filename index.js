@@ -7,7 +7,7 @@ const gameName = "GamiflyGame";
 const port = process.env.PORT || 3000;
 
 const server = express();
-const bot = new TelegramBot(TOKEN);
+const bot = new TelegramBot(TOKEN,{polling: false});
 const queries = {};
 
 // Help command
