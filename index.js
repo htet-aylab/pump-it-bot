@@ -75,7 +75,7 @@ server.use((err, req, res, next) => {
 
 // Serve the index.html file for any unknown routes
 server.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, 'GamiflyGame', 'index.html'));
+    res.sendFile(path.join(__dirname, 'index.html'));
 });
 
 // Start the server
