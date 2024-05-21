@@ -7,16 +7,8 @@ const gameName = "GamiflyGame";
 const port = process.env.PORT || 3000;
 
 const server = express();
-const bot = new TelegramBot(TOKEN);
+const bot = new TelegramBot(TOKEN, { polling: true });
 const queries = {};
-
-// Serve static files from the 'GamiflyGame' directory
-server.use(express.static(path.join(__dirname)));
-server.use(express.static(path.join(__dirname, 'GamiflyGame')));
-
-server.get("/", (req, res) => {
-    res.sendFile(path.join(__dirname, 'index.html'));
-});
 
 // Help command
 bot.onText(/\/help/, (msg) => {
@@ -49,6 +41,15 @@ bot.on("inline_query", (iq) => {
         id: "0",
         game_short_name: gameName
     }]);
+});
+
+// Serve static files from both the root directory and the 'GamiflyGame' directory
+server.use(express.static(path.join(__dirname)));
+server.use(express.static(path.join(__dirname, 'GamiflyGame')));
+
+// Serve index.html as the root directory
+server.get("/", (req, res) => {
+    res.sendFile(path.join(__dirname, 'index.html'));
 });
 
 // Handle high score updates
