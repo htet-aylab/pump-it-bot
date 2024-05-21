@@ -13,9 +13,6 @@ const queries = {};
 // Serve static files from the 'GamiflyGame' directory
 server.use(express.static(path.join(__dirname, 'GamiflyGame')));
 
-server.get("/", (req, res) => {
-    res.sendFile(path.join(__dirname, 'index.html'));
-});
 
 // Help command
 bot.onText(/\/help/, (msg) => {
