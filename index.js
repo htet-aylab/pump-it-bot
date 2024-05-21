@@ -13,9 +13,6 @@ const queries = {};
 // Serve static files from the 'GamiflyGame' directory
 server.use(express.static(path.join(__dirname, 'GamiflyGame')));
 
-server.get("/", (req, res) => {
-    res.sendFile(path.join(__dirname, 'index.html'));
-});
 
 // Help command
 bot.onText(/\/help/, (msg) => {
@@ -33,7 +30,7 @@ bot.on("callback_query", (query) => {
         bot.answerCallbackQuery(query.id, "Sorry, '" + query.game_short_name + "' is not available.");
     } else {
         queries[query.id] = query;
-        const gameUrl = "https://pump-it-bot.onrender.com";
+        const gameUrl = "https://pump-it-bot.onrender.com/";
         bot.answerCallbackQuery({
             callback_query_id: query.id,
             url: gameUrl
