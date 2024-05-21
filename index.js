@@ -86,9 +86,6 @@ server.listen(port, () => {
 });
 
 // Add error handling for the bot
-bot.on('polling_error', (error) => {
-    console.error(`Polling error: ${error.code} - ${error.message}`);
-});
 
 bot.on('webhook_error', (error) => {
     console.error(`Webhook error: ${error.code} - ${error.message}`);
