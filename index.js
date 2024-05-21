@@ -7,14 +7,14 @@ const gameName = "GamiflyGame";
 const port = process.env.PORT || 3000;
 
 const server = express();
-const bot = new TelegramBot(TOKEN, { polling: true });
+const bot = new TelegramBot(TOKEN);
 const queries = {};
 
 // Serve static files from the 'GamiflyGame' directory
 server.use(express.static(path.join(__dirname, 'GamiflyGame')));
 
 server.get("/", (req, res) => {
-    res.sendFile(path.join(__dirname, 'GamiflyGame', 'index.html'));
+    res.sendFile(path.join(__dirname, 'index.html'));
 });
 
 // Help command
