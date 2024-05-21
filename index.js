@@ -14,7 +14,7 @@ const queries = {};
 server.use(express.static(path.join(__dirname, 'GamiflyGame')));
 
 server.get("/", (req, res) => {
-    res.sendFile(path.join(__dirname, 'GamiflyGame', 'index.html'));
+    res.sendFile(path.join(__dirname, 'index.html'));
 });
 
 // Help command
