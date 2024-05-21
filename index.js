@@ -73,6 +73,11 @@ server.use((err, req, res, next) => {
     res.status(500).send('Something broke!');
 });
 
+// Serve the index.html file for any unknown routes
+server.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, 'GamiflyGame', 'index.html'));
+});
+
 // Start the server
 server.listen(port, () => {
     console.log(`Server is running on port ${port}`);
