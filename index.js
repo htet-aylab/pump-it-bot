@@ -29,7 +29,7 @@ bot.on("callback_query", (query) => {
         bot.answerCallbackQuery(query.id, "Sorry, '" + query.game_short_name + "' is not available.");
     } else {
         queries[query.id] = query;
-        const gameUrl = "https://pump-it-bot.onrender.com";
+        const gameUrl = "https://pump-it-bot.onrender.com/GamiflyGame";
         bot.answerCallbackQuery({
             callback_query_id: query.id,
             url: gameUrl
@@ -71,11 +71,6 @@ server.get("/highscore/:score", (req, res, next) => {
 server.use((err, req, res, next) => {
     console.error(err.stack);
     res.status(500).send('Something broke!');
-});
-
-// Serve the index.html file for any unknown routes
-server.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, 'index.html'));
 });
 
 // Start the server
