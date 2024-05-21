@@ -7,7 +7,7 @@ const gameName = "GamiflyGame";
 const port = process.env.PORT || 3000;
 
 const server = express();
-const bot = new TelegramBot(TOKEN,{polling: false});
+const bot = new TelegramBot(TOKEN, { polling: true });
 const queries = {};
 
 // Help command
@@ -84,6 +84,9 @@ server.listen(port, () => {
 });
 
 // Add error handling for the bot
+bot.on('polling_error', (error) => {
+    console.error(`Polling error: ${error.code} - ${error.message}`);
+});
 
 bot.on('webhook_error', (error) => {
     console.error(`Webhook error: ${error.code} - ${error.message}`);
