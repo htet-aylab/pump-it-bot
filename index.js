@@ -10,6 +10,13 @@ const server = express();
 const bot = new TelegramBot(TOKEN, { polling: true });
 const queries = {};
 
+// Serve static files from the 'GamiflyGame' directory
+server.use(express.static(path.join(__dirname, 'GamiflyGame')));
+
+server.get("/", (req, res) => {
+    res.sendFile(path.join(__dirname, 'index.html'));
+});
+
 // Help command
 bot.onText(/\/help/, (msg) => {
     bot.sendMessage(msg.chat.id, "Say /game if you want to play.");
@@ -26,7 +33,7 @@ bot.on("callback_query", (query) => {
         bot.answerCallbackQuery(query.id, "Sorry, '" + query.game_short_name + "' is not available.");
     } else {
         queries[query.id] = query;
-        const gameUrl = "https://pump-it-bot.onrender.com/";
+        const gameUrl = "https://pump-it-bot.onrender.com";
         bot.answerCallbackQuery({
             callback_query_id: query.id,
             url: gameUrl
@@ -41,14 +48,6 @@ bot.on("inline_query", (iq) => {
         id: "0",
         game_short_name: gameName
     }]);
-});
-
-// Serve static files from the 'GamiflyGame' directory
-server.use(express.static(path.join(__dirname, 'GamiflyGame')));
-
-// Serve index.html as the root directory
-server.get("/", (req, res) => {
-    res.sendFile(path.join(__dirname, 'index.html'));
 });
 
 // Handle high score updates
