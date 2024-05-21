@@ -7,7 +7,9 @@ const gameName = "GamiflyGame";
 const port = process.env.PORT || 3000;
 
 const server = express();
-const bot = new TelegramBot(TOKEN, { polling: true });
+const bot = new TelegramBot(TOKEN, { webHook: {
+    port: port
+} });
 const queries = {};
 
 // Help command
@@ -26,19 +28,13 @@ bot.on("callback_query", (query) => {
         bot.answerCallbackQuery(query.id, "Sorry, '" + query.game_short_name + "' is not available.");
     } else {
         queries[query.id] = query;
-        bot.sendMessage(query.message.chat.id, "Click the button below to play the game:", {
-            reply_markup: {
-                inline_keyboard: [
-                    [{
-                        text: "Play Game",
-                        callback_data: "play_game"
-                    }]
-                ]
-            }
+        const gameUrl = "https://pump-it-bot.onrender.com/";
+        bot.answerCallbackQuery({
+            callback_query_id: query.id,
+            url: gameUrl
         });
     }
 });
-
 
 // Handle inline queries
 bot.on("inline_query", (iq) => {
