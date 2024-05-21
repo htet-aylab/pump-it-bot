@@ -1,20 +1,13 @@
-const express = require('express');
-const bodyParser = require('body-parser');
-const TelegramBot = require('node-telegram-bot-api');
-const path = require("path")
+const express = require("express");
+const path = require("path");
+const TelegramBot = require("node-telegram-bot-api");
 
 const TOKEN = process.env.TELEGRAM_BOT_TOKEN;
 const gameName = "GamiflyGame";
 const port = process.env.PORT || 3000;
-const url = `https://pump-it-bot.onrender.com`;
 
 const server = express();
-server.use(bodyParser.json());
-
-// Create a bot instance
-const bot = new TelegramBot(TOKEN, { webHook: true });
-bot.setWebHook(`${url}/bot${TOKEN}`);
-
+const bot = new TelegramBot(TOKEN, { polling: true });
 const queries = {};
 
 // Serve static files from the 'GamiflyGame' directory
@@ -80,12 +73,16 @@ server.use((err, req, res, next) => {
     res.status(500).send('Something broke!');
 });
 
-// Serve the index.html file for any unknown routes
-server.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, 'index.html'));
-});
-
 // Start the server
 server.listen(port, () => {
     console.log(`Server is running on port ${port}`);
+});
+
+// Add error handling for the bot
+bot.on('polling_error', (error) => {
+    console.error(`Polling error: ${error.code} - ${error.message}`);
+});
+
+bot.on('webhook_error', (error) => {
+    console.error(`Webhook error: ${error.code} - ${error.message}`);
 });
