@@ -43,8 +43,7 @@ bot.on("inline_query", (iq) => {
     }]);
 });
 
-// Serve static files from both the root directory and the 'GamiflyGame' directory
-server.use(express.static(path.join(__dirname)));
+// Serve static files from the 'GamiflyGame' directory
 server.use(express.static(path.join(__dirname, 'GamiflyGame')));
 
 // Serve index.html as the root directory
