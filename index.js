@@ -14,6 +14,10 @@ const queries = {};
 server.use(express.static(path.join(__dirname)));
 server.use(express.static(path.join(__dirname, 'GamiflyGame')));
 
+server.get("/", (req, res) => {
+    res.sendFile(path.join(__dirname, 'index.html'));
+});
+
 // Help command
 bot.onText(/\/help/, (msg) => {
     bot.sendMessage(msg.chat.id, "Say /game if you want to play.");
