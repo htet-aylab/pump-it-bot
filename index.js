@@ -1,6 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const TelegramBot = require('node-telegram-bot-api');
+const path = require("path")
 
 const TOKEN = process.env.TELEGRAM_BOT_TOKEN;
 const gameName = "GamiflyGame";
