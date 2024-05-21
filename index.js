@@ -6,7 +6,7 @@ const path = require("path")
 const TOKEN = process.env.TELEGRAM_BOT_TOKEN;
 const gameName = "GamiflyGame";
 const port = process.env.PORT || 3000;
-const url = `https://your-server.com`;
+const url = `https://pump-it-bot.onrender.com`;
 
 const server = express();
 server.use(bodyParser.json());
@@ -82,7 +82,7 @@ server.use((err, req, res, next) => {
 
 // Serve the index.html file for any unknown routes
 server.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, 'GamiflyGame', 'index.html'));
+    res.sendFile(path.join(__dirname, 'index.html'));
 });
 
 // Start the server
