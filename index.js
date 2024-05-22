@@ -30,7 +30,7 @@ bot.on("callback_query", (query) => {
         bot.answerCallbackQuery(query.id, "Sorry, '" + query.game_short_name + "' is not available.");
     } else {
         queries[query.id] = query;
-        const gameUrl = "https://pump-it-bot.onrender.com/";
+        const gameUrl = "https://pump-game.onrender.com/";
         bot.answerCallbackQuery({
             callback_query_id: query.id,
             url: gameUrl
